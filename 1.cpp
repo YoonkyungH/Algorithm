@@ -15,7 +15,7 @@ int solution(vector<vector<int>> board, vector<int> moves) {
                 v.push_back(board[j][index]);
                 board[j][index] = 0;
                 break;
-            }
+            } 
         } if(v.size()>=2) {
             for(int y=0; y<v.size(); y++) {
                 if(v[y] == v[y-1]) {
