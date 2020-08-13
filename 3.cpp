@@ -17,7 +17,7 @@ vector<int> solution(vector<int> answers) {
         if(answers[i] == A[j])
             arr[0] += 1;
         if(j == 4)
-            j = 0;
+            j = -1;
         i++;
     } i = 0;
     for(int k=0; k<8; k++) { // B 학생
@@ -26,7 +26,7 @@ vector<int> solution(vector<int> answers) {
         if(answers[i] == B[k])
             arr[1] += 1;
         if(k == 7)
-            k = 0;
+            k = -1;
         i++;
     } i=0;
     for(int l=0; l<10; l++) { // C 학생
@@ -35,7 +35,7 @@ vector<int> solution(vector<int> answers) {
         if(answers[i] == C[l])
             arr[2] += 1;
         if(l == 9)
-            l = 0;
+            l = -1;
         i++;
     }
     if(arr[0] >= arr[1] && arr[0] >= arr[2])
