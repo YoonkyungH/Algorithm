@@ -5,58 +5,60 @@ using namespace std;
 
 string solution(vector<int> numbers, string hand) {
     string answer = "";
-    int l=10, r=11; // 10은 * 11은 #
-    int ln = 0, rn = 0; // 움직인 횟수
-    int j=0;
 
-    for(int i=0; i<numbers.size(); i++) {
-        if(numbers[0] == 2 || numbers[0] == 5 || numbers[0] == 8 || numbers[0] == 0) {
-            if(hand == "left") {
-                answer += 'L'; l = numbers[0];
-            }else if(hand == "right") {
-                answer += 'R'; r = numbers[0];
-            } i++;
+    int lNum = 10;
+    int rNum = 12;
+    int lDistanse = 0;
+    int rDistanse = 0;
+
+    for (int i = 0; i < numbers.size(); i++) {
+        if (lNum == 0) {
+           lNum = 11;
         }
-        if(numbers[i] == 1 || numbers[i] == 4 || numbers[i] == 7){
-            answer += 'L'; l = numbers[i];
-        } else if(numbers[i] == 3 || numbers[i] == 6 || numbers[i] == 9) {
-            answer += 'R'; r = numbers[i];
+        if (rNum == 0) {
+            rNum = 11;
+        }
+        if (numbers[i] == 1 || numbers[i] == 4 || numbers[i] == 7) {
+            answer += "L";
+            lNum = numbers[i];
+        } else if (numbers[i] == 3 || numbers[i] == 6 || numbers[i] == 9) {
+            answer += "R";
+            rNum = numbers[i];
         } else {
-            if(l==1 || l==4 || l==7) {
-                if(numbers[i]>l) {
-                    l+=1; ln++; while(l!=numbers[i]) {
-                        l+=3; ln++;
-                    }
-                }else if(numbers[i]<l) {
-                    l+=1; ln++; while(l!=numbers[i]) {
-                        l-=3; ln++;
-                    }
-                }
+            if (numbers[i] != 0) {
+                lDistanse = abs(numbers[i] - lNum); // abs() 절대값 함수
+                rDistanse = abs(numbers[i] - rNum);
+            } else {
+                lDistanse = abs(11 - lNum);
+                rDistanse = abs(11 - rNum);
             }
-            if(l==3 || l==6 || l==9) {
-                if(numbers[i]>r) {
-                    r-=1; rn++; while(r!=numbers[i]) {
-                        r+=3; rn++;
-                    }
-                }else if(numbers[i]<r) {
-                    r-=1; rn++; while(r!=numbers[i]) {
-                        r-=3; rn++;
-                    }
-                }
+            if (lDistanse % 3 == 0) {
+                lDistanse = lDistanse / 3;
+            } else {
+                lDistanse = (lDistanse % 3) + (lDistanse / 3);
             }
-            if(rn>ln)
-                answer += 'L';
-            else if(ln>rn)
-                answer += 'R';
-            else if(ln==rn) {
-                if(hand == "right") {
-                    answer += 'R';
+            if (rDistanse % 3 == 0) {
+                rDistanse = rDistanse / 3;
+            } else {
+                rDistanse = (rDistanse % 3) + (rDistanse / 3);
+            }
+            if (lDistanse > rDistanse) {
+                answer += "R";
+                rNum = numbers[i];
+            } else if (lDistanse == rDistanse) {
+                answer += toupper(hand[0]); // toupper() 소문자에서 대문자 변환
+                if (hand[0] == 'r') {
+                    rNum = numbers[i];
+                } else {
+                    lNum = numbers[i];
                 }
-                else if(hand == "left") {
-                    answer += 'L';
-                }
+            } else {
+                answer += "L";
+                lNum = numbers[i];
             }
         }
+
     }
+
     return answer;
 }
