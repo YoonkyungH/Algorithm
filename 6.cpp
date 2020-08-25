@@ -18,16 +18,18 @@ int solution(int n, vector<int> lost, vector<int> reserve) {
     } // 잃어버린 학생들
 
     for(int i=0; i<lost.size(); i++) {
-        if(std[lost[i]-1] == 2) {
-            std[lost[i]-1]--; std[lost[i]]++;
-        }
-        else if(std[lost[i]+1] == 2) {
-            std[lost[i]+1]--; std[lost[i]]++;
+        if(std[lost[i]]==0){
+            if(std[lost[i]-1] == 2) {
+                std[lost[i]-1]--; std[lost[i]]++;
+            }
+            else if(std[lost[i]+1] == 2) {
+                std[lost[i]+1]--; std[lost[i]]++;
+            }
         }
     }
 
     for(int i=1; i<=n; i++) {
-        if(std[i] == 1 || std[i] == 2) {
+        if(std[i] >= 1){
             answer++;
         }
     }
